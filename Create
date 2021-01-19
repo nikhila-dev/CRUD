@@ -1,0 +1,32 @@
+var mysql = require('mysql');
+var connect = mysql.createPool({
+host : 'localhost',
+user : '',
+password: '',
+database: ''
+});
+var table = "CREATE TABLE courses (Reg_id varchar(30) NOT NULL,"+
+"Name varchar(30) NOT NULL,"+
+"Title varchar(30) NOT NULL,"+
+"Platform varchar(30) NOT NULL,"+
+"Start_date date NOT NULL,"+
+"End_date date NOT NULL,"+
+"Duration varchar(30) NOT NULL,"+
+"Level varchar(30) NOT NULL,"+
+"Status varchar(30) DEFAULT NULL,"+
+"Ongoing_or_completed_courses INT NOT NULL,"+
+"Fees decimal(19,2) NOT NULL,"+
+"Upload blob NOT NULL,"+
+"PRIMARY KEY (Reg_id)) ENGINE=InnoDB DEFAULT CHARSET=latin1";
+//establishing connection
+connect.getConnection(function(err, connection){
+//Creating details table
+connection.query(table, function(err){
+if(err) throw err;
+else {
+console.log('Table created Successfully!');
+}
+});
+//releasing connection
+connection.release();
+});
